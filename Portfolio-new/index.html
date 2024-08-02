@@ -604,7 +604,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <!-- Form -->
-                    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="showThankYouMessage(event)">
                         <input type="hidden" name="form-name" value="contact">
                         <p style="display:none;">
                             <label data-en="Don’t fill this out if you're human:" data-fr="Ne remplissez pas ceci si vous êtes humain :">Don’t fill this out if you're human:</label>
@@ -622,9 +622,7 @@
                             <label for="message" class="form-label" data-en="Message" data-fr="Message">Message</label>
                             <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
                         </div>
-
                         
-
                         <button type="submit" class="btn btn-primary" data-en="Send Message" data-fr="Envoyer le message">Send Message</button>
                     </form>
                     <!-- Thank You Message -->
@@ -637,8 +635,6 @@
             </div>
         </div>
     </section>
-    
-    
 
     <footer class="bg-dark text-white py-3">
         <div class="container">
@@ -745,33 +741,15 @@
     });
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.querySelector('form[name="contact"]');
-    const thankYouMessage = document.getElementById('thank-you-message');
-
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(form);
-            fetch('/', {
-                method: 'POST',
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(formData).toString()
-            })
-            .then(() => {
-                form.style.display = 'none';
-                if (thankYouMessage) {
-                    thankYouMessage.style.display = 'block';
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
-            });
-        });
+    // Add your custom JavaScript code here...
+    function showThankYouMessage(event) {
+        event.preventDefault(); // Prevents the default form submission
+        // Display the thank you message
+        document.getElementById('thank-you-message').style.display = 'block';
+        // Optionally, hide the form after submission
+        event.target.style.display = 'none';
     }
-});
-
+        
     </script>
 </body>
 </html>
